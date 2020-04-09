@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="#7e57c2"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView_currentNumber"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="3"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_weight="2"
+        android:src="@drawable/business_bookcover" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginVertical="8dp"
+        android:layout_weight="9" >
+
+        <TextView
+            android:id="@+id/textView_bookTitle"
+            android:layout_width="match_parent"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="italic"
+            android:text="Title" />
+
+        <TextView
+            android:id="@+id/textView_bookAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#d4e157"
+            android:layout_marginBottom="8dp"
+            android:text="by Author" />
+
+        <TextView
+            android:id="@+id/textView_bookPubDate"
+            android:layout_width="match_parent"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:text="2017" />
+
+        <TextView
+            android:id="@+id/textView_bookCategory"
+            android:textSize="12sp"
+            android:textColor="#cfd8dc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Computer science" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/textView_bookPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="30 RON"
+        android:layout_marginRight="8dp"
+        android:layout_weight="2" />
+
+</LinearLayout>

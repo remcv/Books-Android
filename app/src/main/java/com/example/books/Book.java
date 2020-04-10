@@ -10,6 +10,7 @@ class Book
     private String pubDate;
     private String category;
     private double retailPrice;
+    private String imageURL;
 
     // constructor
     public Book()
@@ -17,13 +18,14 @@ class Book
         // constructor for RecyclerView
     }
 
-    public Book(String title, String author, String pubDate, String category, double retailPrice)
+    public Book(String title, String author, String pubDate, String category, double retailPrice, String imageURL)
     {
         this.title = title;
         this.author = author;
         this.pubDate = pubDate;
         this.category = category;
         this.retailPrice = retailPrice;
+        this.imageURL = imageURL;
     }
 
     // methods
@@ -50,6 +52,11 @@ class Book
     public double getRetailPrice()
     {
         return retailPrice;
+    }
+
+    public String getImageURL()
+    {
+        return imageURL;
     }
 
     @NonNull

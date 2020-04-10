@@ -87,6 +87,7 @@ class NetFun
         String pubDate;
         String category;
         double retailPrice;
+        String imageURL;
 
         try
         {
@@ -155,8 +156,17 @@ class NetFun
                     retailPrice = -1.0;
                 }
 
+                try
+                {
+                    imageURL = rootArray.getJSONObject(i).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("smallThumbnail");
+                }
+                catch (JSONException e)
+                {
+                    Log.d(TAG, "jsonToBookList >> inner IMAGEURL JSONException thrown at index " + i);
+                    imageURL = "NA";
+                }
 
-                bookList.add(new Book(title, author, pubDate, category, retailPrice));
+                bookList.add(new Book(title, author, pubDate, category, retailPrice, imageURL));
             }
 
             return bookList;

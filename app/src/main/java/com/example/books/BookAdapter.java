@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,6 +26,7 @@ class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder>
         TextView author_TV;
         TextView pubDate_TV;
         TextView category_TV;
+        ImageView bookCover_IV;
 
         // constructor
         public BookHolder(@NonNull View itemView)
@@ -34,6 +38,7 @@ class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder>
             author_TV = itemView.findViewById(R.id.textView_bookAuthor);
             pubDate_TV = itemView.findViewById(R.id.textView_bookPubDate);
             category_TV = itemView.findViewById(R.id.textView_bookCategory);
+            bookCover_IV = itemView.findViewById(R.id.imageView_BookCover);
         }
     }
 
@@ -64,8 +69,7 @@ class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder>
     {
         Book aBook = bookList.get(position);
 
-        TextView title = holder.title_TV;
-        title.setText(aBook.getTitle());
+        holder.title_TV.setText(aBook.getTitle());
         TextView price = holder.price_TV;
 
         if (aBook.getRetailPrice() == -1.0)
@@ -81,6 +85,20 @@ class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder>
         holder.author_TV.setText(String.valueOf("by " + aBook.getAuthor()));
         holder.pubDate_TV.setText(aBook.getPubDate());
         holder.category_TV.setText(aBook.getCategory());
+
+        ImageView bookCover = holder.bookCover_IV;
+
+        String tempImageURL;
+
+        if (!aBook.getImageURL().equals("NA"))
+        {
+            tempImageURL = aBook.getImageURL().replace("http:", "https:");
+
+            Picasso
+                    .get()
+                    .load(tempImageURL)
+                    .into(bookCover);
+        }
     }
 
     @Override

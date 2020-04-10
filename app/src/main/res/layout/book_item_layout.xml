@@ -18,12 +18,13 @@
         android:textColor="@android:color/black" />
 
     <ImageView
+        android:id="@+id/imageView_BookCover"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginLeft="4dp"
         android:layout_weight="2"
-        android:src="@drawable/business_bookcover" />
+        android:src="@drawable/empty_book_cover" />
 
     <LinearLayout
         android:orientation="vertical"

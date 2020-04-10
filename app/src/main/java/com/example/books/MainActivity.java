@@ -5,11 +5,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -21,11 +24,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MainActivity extends AppCompatActivity
 {
     // member variables - layout
+    private TextView tv_status;
     private TextInputLayout til_searchBox;
     private ImageView imageButton_search;
     private RecyclerView rv_bookList;
-    private BookAdapter adapter;
     private static final String TAG = "MainActivity";
+    private ConnectivityManager conMan;
+    private NetworkInfo netInfo;
 
     // member variables - database
     private static List<Book> bookList = new CopyOnWriteArrayList<>();
@@ -50,27 +55,43 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                String searchWord = til_searchBox.getEditText().getText().toString().trim();
-                if (!searchWord.equals(""))
+                conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                if (conMan != null)
                 {
-                    new Thread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            JSONObject obj = NetFun.urlToJson(makeStringURL(searchWord));
-                            bookList = NetFun.jsonToBookList(obj, 40);
+                    netInfo = conMan.getActiveNetworkInfo();
+                }
 
-                            runOnUiThread(new Runnable()
+                if (netInfo != null && netInfo.isConnected())
+                {
+                    String searchWord = til_searchBox.getEditText().getText().toString().trim();
+                    if (!searchWord.equals(""))
+                    {
+                        new Thread(new Runnable()
+                        {
+                            @Override
+                            public void run()
                             {
-                                @Override
-                                public void run()
+                                JSONObject obj = NetFun.urlToJson(makeStringURL(searchWord));
+                                bookList = NetFun.jsonToBookList(obj, 40);
+
+                                runOnUiThread(new Runnable()
                                 {
-                                    rv_bookList.setAdapter(new BookAdapter(bookList));
-                                }
-                            });
-                        }
-                    }).start();
+                                    @Override
+                                    public void run()
+                                    {
+                                        rv_bookList.setAdapter(new BookAdapter(bookList));
+                                        tv_status.setVisibility(View.GONE);
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
+                }
+                else
+                {
+                    tv_status.setVisibility(View.VISIBLE);
+                    tv_status.setText(String.valueOf ("No internet connection"));
+                    rv_bookList.setAdapter(null);
                 }
             }
         });
@@ -82,6 +103,7 @@ public class MainActivity extends AppCompatActivity
         til_searchBox = findViewById(R.id.textInputLayout_searchBook);
         imageButton_search = findViewById(R.id.imageButton);
         rv_bookList = findViewById(R.id.recyclerView_bookList);
+        tv_status = findViewById(R.id.textView_status);
     }
 
     private String makeStringURL(String wordsToSearch)

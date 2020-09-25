@@ -2,7 +2,7 @@
 
 Simple Android app to search for books online using the Google Books API.
 
-##### Concepts used
+#### Concepts used
 - Java collections, concurrency, networking
 - Android UI 
 - REST API
@@ -10,5 +10,5 @@ Simple Android app to search for books online using the Google Books API.
 - Picasso library
 - Gradle
 
-##### Screenshot
+#### Screenshot
 ![App screenshot](/screenshots/Screenshot_01.jpg)
